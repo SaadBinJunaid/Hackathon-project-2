@@ -1,10 +1,46 @@
 "use client"
+import billingDetails from "../billing/page"
 import Image from "next/image"
 import Link from "next/link"
 import Navbar from "./Navbar"
 import Footer from "./Footer"
+import { useState, useEffect } from 'react';
 
-function Checkout() {
+interface CartItem {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
+  quantity: number;
+}
+
+export default function Cart() {
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
+
+  useEffect(() => {
+    const storedCart = localStorage.getItem('cart');
+    if (storedCart) {
+      setCartItems(JSON.parse(storedCart));
+    }
+  }, []);
+
+  const removeFromCart = (id: number) => {
+    const updatedCart = cartItems.filter((item) => item.id !== id);
+    setCartItems(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
+
+  const updateQuantity = (id: number, quantity: number) => {
+    const updatedCart = cartItems.map((item) =>
+      item.id === id ? { ...item, quantity } : item
+    );
+    setCartItems(updatedCart);
+    localStorage.setItem('cart', JSON.stringify(updatedCart));
+  };
+
+  const subtotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+
   return (
     <>
       <Navbar />
@@ -20,170 +56,97 @@ function Checkout() {
 
       <div className="container mx-auto px-4 py-16">
         {/* Cart Table */}
-        <div className="mb-16">
-          <div className="bg-[#FFF9E5] grid grid-cols-4 p-4">
-            <div>Product</div>
-            <div>Price</div>
-            <div>Quantity</div>
-            <div>Subtotal</div>
-          </div>
-
-          <div className="grid grid-cols-4 items-center p-4">
-            <div className="flex items-center gap-4">
-              <div className="bg-[#FFF9E5] p-2">
-                <Image 
-                  src="/Asgaardsofa.png" 
-                  alt="Asgaard sofa" 
-                  width={80} 
-                  height={80}
-                  className="object-cover"
-                />
-              </div>
-              <span className="text-gray-500">Asgaard sofa</span>
-            </div>
-            <div className="text-gray-500">Rs. 250,000.00</div>
-            <div>
-              <input 
-                type="number" 
-                value="1"
-                min="1"
-                className="w-16 border rounded p-2 text-center"
-                readOnly
-              />
-            </div>
-            <div className="flex justify-between items-center">
-              <span>Rs. 250,000.00</span>
-              <button className="text-gray-400">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Cart Totals */}
-        <div className="max-w-sm ml-auto mb-16">
-          <div className="bg-[#FFF9E5] p-8">
-            <h2 className="text-2xl font-bold mb-6">Cart Totals</h2>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span>Subtotal</span>
-                <span className="text-gray-500">Rs. 250,000.00</span>
-              </div>
-              <div className="flex justify-between items-center pt-4 border-t">
-                <span>Total</span>
-                <span className="text-[#B88E2F] font-bold">Rs. 250,000.00</span>
-              </div>
-              <button className="w-full border border-black rounded-3xl py-3 mt-4 hover:bg-black hover:text-white transition-colors">
-                Check Out
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Billing Details */}
-        <div>
-          <h2 className="text-3xl font-bold mb-8">Billing details</h2>
-          <form className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block mb-2">First Name</label>
-                <input type="text" className="w-full border rounded-md p-3" />
-              </div>
-              <div>
-                <label className="block mb-2">Last Name</label>
-                <input type="text" className="w-full border rounded-md p-3" />
-              </div>
-            </div>
-            <div>
-              <label className="block mb-2">Company Name (Optional)</label>
-              <input type="text" className="w-full border rounded-md p-3" />
-            </div>
-            <div>
-              <label className="block mb-2">Country / Region</label>
-              <select className="w-full border rounded-md p-3">
-                <option>Sri Lanka</option>
-              </select>
-            </div>
-            <div>
-              <label className="block mb-2">Street address</label>
-              <input type="text" className="w-full border rounded-md p-3" />
-            </div>
-            <div>
-              <label className="block mb-2">Town / City</label>
-              <input type="text" className="w-full border rounded-md p-3" />
-            </div>
-            <div>
-              <label className="block mb-2">Province</label>
-              <select className="w-full border rounded-md p-3">
-                <option>Western Province</option>
-              </select>
-            </div>
-            <div>
-              <label className="block mb-2">ZIP code</label>
-              <input type="text" className="w-full border rounded-md p-3" />
-            </div>
-            <div>
-              <label className="block mb-2">Phone</label>
-              <input type="tel" className="w-full border rounded-md p-3" />
-            </div>
-            <div>
-              <label className="block mb-2">Email address</label>
-              <input type="email" className="w-full border rounded-md p-3" />
-            </div>
-            <div>
-              <label className="block mb-2">Additional information</label>
-              <textarea className="w-full border rounded-md p-3 h-32" />
-            </div>
-          </form>
-        </div>
-
-        {/* Order Summary */}
-        <div>
-          <h2 className="text-3xl font-bold mb-8">Product</h2>
-          <div className="space-y-4">
-            <div className="flex justify-between items-center">
-              <p>Asgaard sofa  1</p>
-              <p>Rs. 250,000.00</p>
-            </div>
-            <div className="flex justify-between items-center border-t pt-4">
-              <p>Subtotal</p>
-              <p>Rs. 250,000.00</p>
-            </div>
-            <div className="flex justify-between items-center border-t pt-4 font-bold">
-              <p>Total</p>
-              <p className="text-[#B88E2F]">Rs. 250,000.00</p>
-            </div>
-
-            <div className="space-y-4 mt-8">
-              <div className="flex items-center gap-2">
-                <input type="radio" id="bank" name="payment" checked />
-                <label htmlFor="bank">Direct Bank Transfer</label>
-              </div>
-              <p className="text-gray-500 text-sm">
-                Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
-              </p>
-              <div className="flex items-center gap-2">
-                <input type="radio" id="cod" name="payment" />
-                <label htmlFor="cod">Cash On Delivery</label>
-              </div>
-            </div>
-
-            <p className="text-sm text-gray-600 mt-4">
-              Your personal data will be used to support your experience throughout this website, to manage access to your account, and for other purposes described in our{' '}
-              <Link href="/privacy-policy" className="underline">
-                privacy policy
-              </Link>
-              .
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-12 py-12 flex-grow">
+        {cartItems.length === 0 ? (
+          <div className="flex flex-col items-center text-center py-16">
+            <p className="text-[24px] font-semibold mb-4">Your cart is empty</p>
+            <p className="text-neutral-600 mb-8">
+              Add items to your cart to see them here. Start shopping now!
             </p>
-
-            <button className="w-full border-2 border-black py-3 px-6 rounded-md hover:bg-black hover:text-white transition-colors mt-4">
-              Place order
-            </button>
+            <Link href="/shop">
+              <button className="px-8 py-3 bg-[#FBEBB5] border-black hover:text-white rounded-md hover:bg-black transition-colors">
+                Continue Shopping
+              </button>
+            </Link>
           </div>
-        </div>
+        ) : (
+          <>
+            <div className="hidden md:grid grid-cols-[2fr,1fr,1fr] gap-8 pb-4 border-b border-neutral-200">
+              <div>Product</div>
+              <div className="text-center">Quantity</div>
+              <div className="text-right">Total</div>
+            </div>
+
+            {cartItems.map((item) => (
+              <div
+                key={item.id}
+                className="grid md:grid-cols-[2fr,1fr,1fr] gap-8 py-8 border-b border-neutral-200"
+              >
+                <div className="flex gap-8">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-[80px] h-[80px] md:w-[124px] md:h-[124px] object-cover rounded-md"
+                  />
+                  <div>
+                    <h3 className="text-[16px] md:text-[20px] font-medium mb-1 md:mb-2">
+                      {item.name}
+                    </h3>
+                    <p className="text-neutral-600 text-[14px] md:text-[16px] mb-2 md:mb-4">
+                      {item.description}
+                    </p>
+                    <p className="font-semibold text-[14px] md:text-[16px]">
+                      Rs{item.price.toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex justify-center items-start mt-4 md:mt-0">
+                  <input
+                    type="number"
+                    value={item.quantity}
+                    min="1"
+                    onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
+                    className="w-12 md:w-16 text-center py-1"
+                  />
+                </div>
+
+                <div className=" hidden text-right font-semibold mt-4 md:mt-0">
+                  Rs{(item.price * item.quantity).toFixed(2)}
+                </div>
+
+                <div className="hidden md:flex justify-end mt-4">
+                  <button
+                    onClick={() => removeFromCart(item.id)}
+                    className="text-sm text-red-500"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            <div className="flex justify-end mt-8">
+              <div className="w-full md:w-[400px]">
+                <div className="flex justify-between mb-2">
+                  <span className="font-medium">Subtotal</span>
+                  <span className="font-semibold">Rs{subtotal.toFixed(2)}</span>
+                </div>
+                <p className="text-sm text-neutral-600 mb-8">
+                  Taxes and shipping are calculated at checkout
+                </p>
+                <Link href='/billing'>
+                <button className="w-full bg-[#FBEBB5] hover:text-white py-4 border-black hover:bg-black transition-colors rounded-md">
+                  Go to checkout
+                </button>
+                </Link>
+              </div>
+            </div>
+          </>
+        )}
       </div>
+
+        </div>
 
       <div className="container mx-auto px-4 py-16 bg-[#FAF4F4]">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -215,4 +178,4 @@ function Checkout() {
   )
 }
 
-export default Checkout
+

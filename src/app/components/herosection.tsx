@@ -3,29 +3,30 @@ import Image from "next/image"
 
 function HeroSection() {
   return (
-    <div className="bg-gray-100">
-    <div className="container relative bg-[#FBEBB5]  mx-auto mb-auto">
-      <div className="w-[1440px] h-[1000px]">
-        <div className="absolute left-1/2 -top-10">
-          <Image 
-            src={"/sofa.png"} 
-            alt="sofa" 
-            height={1000} 
-            width={853} 
-            className="-scale-x-100"
-          />
-        </div>
-        <div className="absolute left-96 top-[140px]  mt-24">
-          <h1 className="text-6xl font-medium leading-tight">
-            Rocket single <br/>seater
+    <div className="relative bg-[#FBEBB5] h-screen flex items-center">
+      <div className="w-full max-w-[1440px] mx-auto px-4 lg:px-8 flex flex-col-reverse lg:flex-row items-center justify-between">
+        {/* Text Section */}
+        <div className="text-center lg:text-left lg:w-1/2 mt-8 lg:mt-0">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-medium leading-tight">
+            Rocket single <br /> seater
           </h1>
-          <button className=" mt-10 border-b-2 border-black text-xl hover:opacity-75">
+          <button className="mt-6 border-b-2 border-black text-lg sm:text-xl hover:opacity-75">
             Shop Now
           </button>
         </div>
+
+        {/* Image Section */}
+        <div className="lg:w-1/2 flex justify-center lg:justify-end">
+          <Image
+            src="/sofa.png"
+            alt="sofa"
+            width={853}
+            height={1000}
+            className="-scale-x-100 object-contain max-w-full h-auto"
+          />
         </div>
       </div>
-      </div>
+    </div>
   )
 }
 

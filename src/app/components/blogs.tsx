@@ -1,98 +1,100 @@
-import Image from "next/image"
+import Image from "next/image";
+import Link from "next/link";
+const blogData = [
+  {
+    image: "/blogs1.png",
+    title: "Going all-in with millennial design",
+    time: "5 min",
+    date: "12th Oct 2022",
+  },
+  {
+    image: "/blogs2.png",
+    title: "Going all-in with millennial design",
+    time: "5 min",
+    date: "12th Oct 2022",
+  },
+  {
+    image: "/blogs3.png",
+    title: "Going all-in with millennial design",
+    time: "5 min",
+    date: "12th Oct 2022",
+  },
+];
 
 function Blogs() {
   return (
-    <div className="bg-gray-100">
     <div className="container mx-auto py-16">
       <div className="text-center mb-12">
-      <div className="bg-[#FFFFFF]">
-        <h2 className="text-4xl font-medium mb-4">Our Blogs</h2>
-        <p className="text-gray-500">
-          Find a bright ideal to suit your taste with our great selection
-          <div className="bg-[#FFFFFF]"></div>
-        </p>
+        <div className="bg-[#FFFFFF]">
+          <h2 className="text-4xl font-medium mb-4">Our Blogs</h2>
+          <p className="text-gray-500">
+            Find a bright idea to suit your taste with our great selection.
+          </p>
         </div>
       </div>
 
       <div className="bg-[#FFFFFF]">
-      <div className="grid grid-cols-3 gap-8">
-
-        <div className="blog-card">
-          <Image 
-            src="/blogs1.png" 
-            alt="Blog 1" 
-            width={400} 
-            height={300} 
-            className="mb-4"
-          />
-          <h3 className="text-xl font-medium mb-4">Going all-in with millennial design</h3>
-          <button className="border-b-2 border-black pb-1 mb-4">Read More</button>
-          <div className="flex items-center gap-4 text-gray-500">
-            <span className="flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12z" clipRule="evenodd"/>
-              </svg>
-              5 min
-            </span>
-            <span>12th Oct 2022</span>
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {blogData.map((blog, index) => (
+            <div key={index} className="blog-card flex flex-col items-center text-center">
+              <Image
+                src={blog.image}
+                alt={`Blog ${index + 1}`}
+                width={400}
+                height={300}
+                className="mb-4"
+              />
+              <h3 className="text-xl font-medium mb-4">{blog.title}</h3>
+              <button className="border-b-2 text-center border-black pb-1 mb-4">Read More</button>
+              <div className="flex flex-col items-center gap-2 text-gray-500">
+                <span className="flex items-center gap-1">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="h-5 w-5"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
+                  {blog.time}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="h-5 w-5 ml-2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5"
+                    />
+                  </svg>
+                  <span>{blog.date}</span>
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
 
-        
-        <div className="blog-card">
-          <Image 
-            src="/blogs3.png" 
-            alt="Blog 2" 
-            width={400} 
-            height={300} 
-            className="mb-4"
-          />
-          <h3 className="text-xl font-medium mb-4">Going all-in with millennial design</h3>
-          <button className="border-b-2 border-black pb-1 mb-4">Read More</button>
-          <div className="flex items-center gap-4 text-gray-500">
-            <span className="flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12z" clipRule="evenodd"/>
-              </svg>
-              5 min
-            </span>
-            <span>12th Oct 2022</span>
-          </div>
-        </div>
-
-        
-        <div className="blog-card">
-          <Image 
-            src="/blogs2.png" 
-            alt="Blog 3" 
-            width={400} 
-            height={300} 
-            className="mb-4"
-          />
-          <h3 className="text-xl font-medium mb-4">Going all-in with millennial design</h3>
-          <button className="border-b-2 border-black pb-1 mb-4">Read More</button>
-          <div className="flex items-center gap-4 text-gray-500">
-            <span className="flex items-center gap-1">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12z" clipRule="evenodd"/>
-              </svg>
-              5 min
-            </span>
-            <span>12th Oct 2022</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="text-center mt-12">
-        <button className="border-b-2 border-black pb-1">View All Post</button>
+        <div className="text-center mt-12">
+        <Link 
+              href="/about" 
+              className="text-xl border-b-2 border-black pb-1 hover:opacity-75">
+            View All Post
+            </Link>
+          
         </div>
       </div>
     </div>
-    </div>
-  )
+  );
 }
 
-export default Blogs
+export default Blogs;

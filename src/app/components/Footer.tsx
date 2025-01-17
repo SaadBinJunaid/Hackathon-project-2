@@ -1,60 +1,59 @@
-
 function Footer() {
   return (
     <div className="bg-white">
-      <div className="container mx-auto px-4 w-[1440px] h-[555px]">
-        <div className="grid grid-cols-4 gap-20 py-16 max-w-[1240px]">
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Address Column */}
-          <div>
-            <p className="text-gray-600 mb-4">
-              400 University Drive Suite 200 Coral <br/> Gables,
-              <br/> FL 33134 USA
+          <div className="mt-20">
+            <p className="text-[#9F9F9F]">
+              400 University Drive Suite 200 Coral <br /> Gables, <br /> FL 33134
+              USA
             </p>
           </div>
 
           {/* Links Column */}
           <div>
-            <h4 className="text-gray-500 mb-6">Links</h4>
-            <ul className="space-y-4">
-              <li><a href="#" className="hover:text-gray-600">Home</a></li>
-              <li><a href="#" className="hover:text-gray-600">Shop</a></li>
-              <li><a href="#" className="hover:text-gray-600">About</a></li>
-              <li><a href="#" className="hover:text-gray-600">Contact</a></li>
+            <h4 className="text-[#9F9F9F] mb-10">Links</h4>
+            <ul className="space-y-6 mb-10">
+              <li><a href="#" className="font-medium">Home</a></li>
+              <li><a href="#" className="font-medium">Shop</a></li>
+              <li><a href="#" className="font-medium">About</a></li>
+              <li><a href="#" className="font-medium">Contact</a></li>
             </ul>
           </div>
 
           {/* Help Column */}
           <div>
-            <h4 className="text-gray-500 mb-6">Help</h4>
-            <ul className="space-y-4">
-              <li><a href="#" className="hover:text-gray-600">Payment Options</a></li>
-              <li><a href="#" className="hover:text-gray-600">Returns</a></li>
-              <li><a href="#" className="hover:text-gray-600">Privacy Policies</a></li>
+            <h4 className="text-[#9F9F9F] mb-10">Help</h4>
+            <ul className="space-y-6">
+              <li><a href="#" className="font-medium">Payment Options</a></li>
+              <li><a href="#" className="font-medium">Returns</a></li>
+              <li><a href="#" className="font-medium">Privacy Policies</a></li>
             </ul>
           </div>
 
           {/* Newsletter Column */}
           <div>
-            <h4 className="text-gray-500 mb-6">Newsletter</h4>
-            <div className="flex gap-2">
-              <input 
-                type="email" 
+            <h4 className="text-[#9F9F9F] mb-10">Newsletter</h4>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <input
+                type="email"
                 placeholder="Enter Your Email Address"
                 className="border-b border-black p-2 flex-grow focus:outline-none"
               />
-              <button className="text-black hover:opacity-75">
+              <button className="text-black border-b border-black font-medium hover:opacity-75">
                 SUBSCRIBE
               </button>
             </div>
           </div>
         </div>
-        
-        <div className="border-t border-gray-200 py-8 text-center">
-          <p className="text-sm text-gray-600">2022 Meubel House. All rights reverved</p>
+
+        <div className="border-t border-gray-200 py-8 mt-8">
+          <p className="text-sm">2022 Meubel House. All rights reserved</p>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Footer
+export default Footer;

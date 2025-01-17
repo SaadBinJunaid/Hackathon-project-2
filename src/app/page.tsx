@@ -7,14 +7,12 @@ import Instagram from "./components/Instagram";
 export default function Home() {
   return (
     <>
-      <div className="bg-gray-200">
-    <Navbar />
-    <HeroSection/>
-    <Cart/>
-    <Blogs/>
-    <Instagram/>
-    <Footer/>
-  </div>
-  </>
+      <Navbar />
+      <HeroSection />
+      <Cart />
+      <Blogs />
+      <Instagram />
+      <Footer />
+    </>
   );
 }
