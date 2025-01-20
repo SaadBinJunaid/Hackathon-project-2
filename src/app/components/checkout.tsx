@@ -115,7 +115,7 @@ export default function Cart() {
                   Rs{(item.price * item.quantity).toFixed(2)}
                 </div>
 
-                <div className="hidden md:flex justify-end mt-4">
+                <div className="md:flex justify-end mt-4">
                   <button
                     onClick={() => removeFromCart(item.id)}
                     className="text-sm text-red-500"
